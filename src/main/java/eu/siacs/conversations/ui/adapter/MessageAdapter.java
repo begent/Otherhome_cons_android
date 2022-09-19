@@ -894,8 +894,8 @@ public class MessageAdapter extends ArrayAdapter<Message> {
 
     public void updatePreferences() {
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(activity);
-        this.mUseGreenBackground = p.getBoolean("use_green_background", activity.getResources().getBoolean(R.bool.use_green_background));
-    }
+           // 숨김 this.mUseGreenBackground = p.getBoolean("use_green_background", activity.getResources().getBoolean(R.bool.use_green_background));
+    } 
 
 
     public void setHighlightedTerm(List<String> terms) {

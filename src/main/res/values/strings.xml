@@ -186,11 +186,11 @@
     <string name="mgmt_account_are_you_sure">Are you sure?</string>
     <string name="mgmt_account_delete_confirm_text">Deleting your account erases your entire conversation history</string>
     <string name="attach_record_voice">Record voice</string>
-    <string name="account_settings_jabber_id">XMPP address</string>
+    <string name="account_settings_jabber_id">Otherhome address</string>
     <string name="block_jabber_id">Block XMPP address</string>
-    <string name="account_settings_example_jabber_id">username@example.com</string>
+    <string name="account_settings_example_jabber_id">username@Otherhome.com</string>
     <string name="password">Password</string>
-    <string name="invalid_jid">This is not a valid XMPP address</string>
+    <string name="invalid_jid">This is not a valid Otherhome address</string>
     <string name="error_out_of_memory">Out of memory. Image too big</string>
     <string name="add_phone_book_text">Do you want to add %s to your address book?</string>
     <string name="server_info_show_more">Server info</string>
@@ -237,8 +237,8 @@
     <string name="select">Select</string>
     <string name="contact_already_exists">The contact already exists</string>
     <string name="join">Join</string>
-    <string name="channel_full_jid_example">channel@conference.example.com/nick</string>
-    <string name="channel_bare_jid_example">channel@conference.example.com</string>
+    <string name="channel_full_jid_example">channel@conferencename.Otherhome.com/nick</string>
+    <string name="channel_bare_jid_example">channel@conferencename.Otherhome.com</string>
     <string name="save_as_bookmark">Save as bookmark</string>
     <string name="delete_bookmark">Delete bookmark</string>
     <string name="destroy_room">Destroy group chat</string>
@@ -540,12 +540,12 @@
     <string name="security_error_invalid_file_access">Security error: Invalid file access!</string>
     <string name="no_application_to_share_uri">No app found to share URI</string>
     <string name="share_uri_with">Share URI with…</string>
-    <string name="welcome_header" translatable="false">Join the Conversation</string>
+    <string name="welcome_header" translatable="false">Join the Otherhome</string>
     <string name="welcome_header_quicksy" translatable="false">Have some Quick Conversations</string>
     <string name="welcome_text_quicksy"><![CDATA[Quicksy is a spin off of the popular XMPP client Conversations with automatic contact discovery.<br><br>You sign up with your phone number and Quicksy will automatically—based on the phone numbers in your address book—suggest possible contacts to you.<br><br>By signing up you agree to our <a href="https://quicksy.im/#privacy">privacy policy</a>.]]></string>
     <string name="agree_and_continue">Agree and continue</string>
-    <string name="magic_create_text">A guide is set up for account creation on conversations.im.¹\nWhen picking conversations.im as a provider you will be able to communicate with users of other providers by giving them your full XMPP address.</string>
-    <string name="your_full_jid_will_be">Your full XMPP address will be: %s</string>
+    <string name="magic_create_text">A guide is set up for account creation on Otherhome.au.¹\nWhen picking Otherhome.au as a provider you will be able to communicate with users of Otherhome. Your username will be shown to Otherhome contacts.</string>
+    <string name="your_full_jid_will_be">Your full Otherhome address will be: %s</string>
     <string name="create_account">Create Account</string>
     <string name="use_own_provider">Use my own provider</string>
     <string name="pick_your_username">Pick your username</string>
@@ -849,13 +849,13 @@
     <string name="unable_to_restore_backup">Could not restore backup.</string>
     <string name="unable_to_decrypt_backup">Could not decrypt backup. Is the password correct?</string>
     <string name="backup_channel_name">Backup &amp; Restore</string>
-    <string name="enter_jabber_id">Enter XMPP address</string>
+    <string name="enter_jabber_id">Enter Otherhome address</string>
     <string name="create_group_chat">Create group chat</string>
     <string name="join_public_channel">Join public channel</string>
     <string name="create_private_group_chat">Create private group chat</string>
     <string name="create_public_channel">Create public channel</string>
     <string name="create_dialog_channel_name">Channel name</string>
-    <string name="xmpp_address">XMPP address</string>
+    <string name="xmpp_address">Otherhome address</string>
     <string name="please_enter_name">Please provide a name for the channel</string>
     <string name="please_enter_xmpp_address">Please provide an XMPP address</string>
     <string name="this_is_an_xmpp_address">This is an XMPP address. Please provide a name.</string>

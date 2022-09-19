@@ -164,11 +164,11 @@
             android:title="@string/pref_accept_files" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_ui_options">
-        <CheckBoxPreference
+         <!--숨김 <CheckBoxPreference
             android:defaultValue="@bool/use_green_background"
             android:key="use_green_background"
             android:summary="@string/pref_use_green_background_summary"
-            android:title="@string/pref_use_green_background" />
+            android:title="@string/pref_use_green_background" /> -->
         <CheckBoxPreference
             android:defaultValue="@bool/show_dynamic_tags"
             android:key="show_dynamic_tags"
@@ -219,7 +219,6 @@
             android:key="enable_foreground_service"
             android:summary="@string/pref_keep_foreground_service_summary"
             android:title="@string/pref_keep_foreground_service" />
-
         <PreferenceScreen
             android:key="expert"
             android:summary="@string/pref_expert_options_summary"
