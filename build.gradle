@@ -92,8 +92,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode 10001
-        versionName "1.1.1"
+        versionCode 10002
+        versionName "1.1.2"
         archivesBaseName += "-$versionName"
         applicationId "com.au.otherhome"
         resValue "string", "applicationId", applicationId
