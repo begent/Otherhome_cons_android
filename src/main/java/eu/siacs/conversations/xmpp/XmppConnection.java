@@ -60,7 +60,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 
-import eu.siacs.conversations.BuildConfig;
 import eu.siacs.conversations.Config;
 import eu.siacs.conversations.R;
 import eu.siacs.conversations.crypto.XmppDomainVerifier;
@@ -134,7 +133,7 @@ public class XmppConnection implements Runnable {
                             state = Account.State.REGISTRATION_PLEASE_WAIT;
                         } else if (error.hasChild("not-acceptable")
                                 && PASSWORD_TOO_WEAK_MSGS.contains(
-                                        error.findChildContent("text"))) {
+                                error.findChildContent("text"))) {
                             state = Account.State.REGISTRATION_PASSWORD_TOO_WEAK;
                         }
                     }
@@ -355,7 +354,7 @@ public class XmppConnection implements Runnable {
                     }
                 }
                 for (Iterator<Resolver.Result> iterator = results.iterator();
-                        iterator.hasNext(); ) {
+                     iterator.hasNext(); ) {
                     final Resolver.Result result = iterator.next();
                     if (Thread.currentThread().isInterrupted()) {
                         Log.d(
@@ -377,8 +376,8 @@ public class XmppConnection implements Runnable {
                                     account.getJid().asBareJid().toString()
                                             + ": using values from resolver "
                                             + (result.getHostname() == null
-                                                    ? ""
-                                                    : result.getHostname().toString() + "/")
+                                            ? ""
+                                            : result.getHostname().toString() + "/")
                                             + result.getIp().getHostAddress()
                                             + ":"
                                             + result.getPort()
@@ -517,9 +516,9 @@ public class XmppConnection implements Runnable {
         sc.init(
                 keyManager,
                 new X509TrustManager[] {
-                    mInteractive
-                            ? trustManager.getInteractive(domain)
-                            : trustManager.getNonInteractive(domain)
+                        mInteractive
+                                ? trustManager.getInteractive(domain)
+                                : trustManager.getNonInteractive(domain)
                 },
                 SECURE_RANDOM);
         return sc.getSocketFactory();
@@ -1233,16 +1232,16 @@ public class XmppConnection implements Runnable {
     }
 
     private void authenticate(final SaslMechanism.Version version) throws IOException {
-        final Element element;
+        final Element authElement;
         if (version == SaslMechanism.Version.SASL) {
-            element = this.streamFeatures.findChild("mechanisms", Namespace.SASL);
+            authElement = this.streamFeatures.findChild("mechanisms", Namespace.SASL);
         } else {
-            element = this.streamFeatures.findChild("authentication", Namespace.SASL_2);
+            authElement = this.streamFeatures.findChild("authentication", Namespace.SASL_2);
         }
         final Collection<String> mechanisms =
                 Collections2.transform(
                         Collections2.filter(
-                                element.getChildren(),
+                                authElement.getChildren(),
                                 c -> c != null && "mechanism".equals(c.getName())),
                         c -> c == null ? null : c.getContent());
         final Element cbElement =
@@ -1291,38 +1290,10 @@ public class XmppConnection implements Runnable {
                 authenticate.setContent(firstMessage);
             }
         } else if (version == SaslMechanism.Version.SASL_2) {
-            authenticate = new Element("authenticate", Namespace.SASL_2);
-            if (!Strings.isNullOrEmpty(firstMessage)) {
-                authenticate.addChild("initial-response").setContent(firstMessage);
-            }
-            final Element userAgent = authenticate.addChild("user-agent");
-            userAgent.setAttribute("id", account.getUuid());
-            userAgent.addChild("software").setContent(mXmppConnectionService.getString(R.string.app_name));
-            if (!PhoneHelper.isEmulator()) {
-                userAgent
-                        .addChild("device")
-                        .setContent(String.format("%s %s", Build.MANUFACTURER, Build.MODEL));
-            }
-            final Element inline = this.streamFeatures.findChild("inline", Namespace.SASL_2);
-            final boolean inlineStreamManagement =
-                    inline != null && inline.hasChild("sm", "urn:xmpp:sm:3");
-            final boolean inlineBind2 = inline != null && inline.hasChild("bind", Namespace.BIND2);
-            final Element inlineBindFeatures =
-                    this.streamFeatures.findChild("inline", Namespace.BIND2);
-            if (inlineBind2 && inlineBindFeatures != null) {
-                final Element bind =
-                        generateBindRequest(
-                                Collections2.transform(
-                                        inlineBindFeatures.getChildren(),
-                                        c -> c == null ? null : c.getAttribute("var")));
-                authenticate.addChild(bind);
-            }
-            if (inlineStreamManagement && streamId != null) {
-                final ResumePacket resume = new ResumePacket(this.streamId, stanzasReceived);
-                this.mSmCatchupMessageCounter.set(0);
-                this.mWaitingForSmCatchup.set(true);
-                authenticate.addChild(resume);
-            }
+            final Element inline = authElement.findChild("inline", Namespace.SASL_2);
+            final boolean sm = inline != null && inline.hasChild("sm", "urn:xmpp:sm:3");
+            final Collection<String> bindFeatures = bindFeatures(inline);
+            authenticate = generateAuthenticationRequest(firstMessage, bindFeatures, sm);
         } else {
             throw new AssertionError("Missing implementation for " + version);
         }
@@ -1336,6 +1307,51 @@ public class XmppConnection implements Runnable {
                         + saslMechanism.getMechanism());
         authenticate.setAttribute("mechanism", saslMechanism.getMechanism());
         tagWriter.writeElement(authenticate);
+    }
+
+    private static Collection<String> bindFeatures(final Element inline) {
+        final Element inlineBind2 =
+                inline != null ? inline.findChild("bind", Namespace.BIND2) : null;
+        final Element inlineBind2Inline =
+                inlineBind2 != null ? inlineBind2.findChild("inline", Namespace.BIND2) : null;
+        if (inlineBind2 == null) {
+            return null;
+        }
+        if (inlineBind2Inline == null) {
+            return Collections.emptyList();
+        }
+        return Collections2.transform(
+                inlineBind2Inline.getChildren(), c -> c == null ? null : c.getAttribute("var"));
+    }
+
+    private Element generateAuthenticationRequest(
+            final String firstMessage,
+            final Collection<String> bind,
+            final boolean inlineStreamManagement) {
+        final Element authenticate = new Element("authenticate", Namespace.SASL_2);
+        if (!Strings.isNullOrEmpty(firstMessage)) {
+            authenticate.addChild("initial-response").setContent(firstMessage);
+        }
+        final Element userAgent = authenticate.addChild("user-agent");
+        userAgent.setAttribute("id", account.getUuid());
+        userAgent
+                .addChild("software")
+                .setContent(mXmppConnectionService.getString(R.string.app_name));
+        if (!PhoneHelper.isEmulator()) {
+            userAgent
+                    .addChild("device")
+                    .setContent(String.format("%s %s", Build.MANUFACTURER, Build.MODEL));
+        }
+        if (bind != null) {
+            authenticate.addChild(generateBindRequest(bind));
+        }
+        if (inlineStreamManagement && streamId != null) {
+            final ResumePacket resume = new ResumePacket(this.streamId, stanzasReceived);
+            this.mSmCatchupMessageCounter.set(0);
+            this.mWaitingForSmCatchup.set(true);
+            authenticate.addChild(resume);
+        }
+        return authenticate;
     }
 
     private Element generateBindRequest(final Collection<String> bindFeatures) {
@@ -1547,8 +1563,8 @@ public class XmppConnection implements Runnable {
                                 }
                                 if (streamFeatures.hasChild("session")
                                         && !streamFeatures
-                                                .findChild("session")
-                                                .hasChild("optional")) {
+                                        .findChild("session")
+                                        .hasChild("optional")) {
                                     sendStartSession();
                                 } else {
                                     final boolean waitForDisco = enableStreamManagement();
@@ -1684,7 +1700,7 @@ public class XmppConnection implements Runnable {
         mPendingServiceDiscoveries.set(0);
         if (!waitForDisco
                 || Patches.DISCO_EXCEPTIONS.contains(
-                        account.getJid().getDomain().toEscapedString())) {
+                account.getJid().getDomain().toEscapedString())) {
             Log.d(
                     Config.LOGTAG,
                     account.getJid().asBareJid() + ": do not wait for service discovery");
@@ -1749,7 +1765,7 @@ public class XmppConnection implements Runnable {
                         }
                         if (advancedStreamFeaturesLoaded
                                 && (jid.equals(account.getDomain())
-                                        || jid.equals(account.getJid().asBareJid()))) {
+                                || jid.equals(account.getJid().asBareJid()))) {
                             enableAdvancedStreamFeatures();
                         }
                     } else if (packet.getType() == IqPacket.TYPE.ERROR) {
@@ -2448,7 +2464,7 @@ public class XmppConnection implements Runnable {
         public boolean sm() {
             return streamId != null
                     || (connection.streamFeatures != null
-                            && connection.streamFeatures.hasChild("sm"));
+                    && connection.streamFeatures.hasChild("sm"));
         }
 
         public boolean csi() {
@@ -2468,7 +2484,7 @@ public class XmppConnection implements Runnable {
                 ServiceDiscoveryResult info = disco.get(account.getJid().asBareJid());
                 return info != null
                         && info.getFeatures()
-                                .contains("http://jabber.org/protocol/pubsub#persistent-items");
+                        .contains("http://jabber.org/protocol/pubsub#persistent-items");
             }
         }
 
