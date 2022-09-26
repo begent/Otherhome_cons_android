@@ -56,18 +56,21 @@
                 android:layout_marginRight="16dp"
                 android:textAppearance="@style/TextAppearance.Conversations.Display2"
                 android:textColor="@color/white"
+                android:textSize="48sp"
                 tools:text="Juliet Capulet" />
+
             <TextView
-                android:visibility="visible"
                 android:id="@+id/with_jid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/status"
-                android:layout_marginTop="8dp"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="16dp"
                 android:textAppearance="@style/TextAppearance.Conversations.Body1"
                 android:textColor="@color/white"
+                android:textSize="16sp"
+                android:visibility="visible"
                 tools:text="jcapulet@example.com" />
 
             <View
@@ -90,6 +93,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/rtp_session_duration_top_margin"
                 android:textAppearance="@style/TextAppearance.Conversations.Title.Monospace"
+                android:textSize="20sp"
                 tools:text="01:23" />
 
             <com.makeramen.roundedimageview.RoundedImageView

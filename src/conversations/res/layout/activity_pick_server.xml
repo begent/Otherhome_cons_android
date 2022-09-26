@@ -16,7 +16,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="?attr/color_background_primary">
 
                 <LinearLayout
@@ -30,7 +30,7 @@
                     android:orientation="vertical"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:paddingBottom="10dp">
+                    android:paddingBottom="20dp">
 
                     <Space
                         android:layout_width="match_parent"
@@ -41,24 +41,29 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/pick_a_server"
-                        android:textAppearance="@style/TextAppearance.Conversations.Title" />
+                        android:textAppearance="@style/TextAppearance.Conversations.Title"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/server_select_text"
-                        android:textAppearance="@style/TextAppearance.Conversations.Body1" />
+                        android:textAppearance="@style/TextAppearance.Conversations.Body1"
+                        android:textSize="14sp" />
 
                     <Button
                         android:id="@+id/use_cim"
                         style="@style/Widget.Conversations.Button.Borderless"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="240dp"
+                        android:layout_height="52dp"
                         android:layout_gravity="right"
+                        android:layout_marginTop="7dp"
+                        android:background="#FDD835"
                         android:text="@string/use_conversations.im"
-                        android:textColor="?colorAccent" />
-
+                        android:textColor="#33691E"
+                        android:textSize="14sp" />
+                    <!-- 숨김 xmpp서버를 선택해서 직접 로그인 pckserveractivity.java파일수정
                     <Button
                         android:id="@+id/use_own_provider"
                         style="@style/Widget.Conversations.Button.Borderless"
@@ -67,20 +72,19 @@
                         android:layout_gravity="right"
                         android:text="@string/use_own_provider"
                         android:textColor="?android:textColorSecondary" />
+                        -->
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@+id/linearLayout"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true">
+                    android:layout_alignParentStart="true">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
+                        android:layout_centerInParent="true"
                         android:padding="8dp"
                         android:src="@drawable/main_logo" />
                 </RelativeLayout>

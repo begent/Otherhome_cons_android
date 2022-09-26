@@ -8,7 +8,8 @@
         android:layout_height="match_parent"
         android:background="?attr/color_background_secondary">
 
-        <include android:id="@+id/toolbar"
+        <include
+            android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
         <ScrollView
@@ -63,12 +64,13 @@
 
                                 <AutoCompleteTextView
                                     android:id="@+id/account_jid"
+                                    style="@style/Widget.Conversations.EditText"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="76dp"
+                                    android:hint="@string/xmpp_address"
                                     android:imeOptions="actionNext"
                                     android:inputType="textEmailAddress"
-                                    android:textColor="?attr/edit_text_color"
-                                    style="@style/Widget.Conversations.EditText"/>
+                                    android:textColor="?attr/edit_text_color" />
                             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -84,13 +86,13 @@
 
                                 <eu.siacs.conversations.ui.widget.TextInputEditText
                                     android:id="@+id/account_password"
+                                    style="@style/Widget.Conversations.EditText"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="76dp"
                                     android:layout_alignParentTop="true"
                                     android:hint="@string/password"
                                     android:inputType="textPassword"
-                                    android:textColor="?attr/edit_text_color"
-                                    style="@style/Widget.Conversations.EditText"/>
+                                    android:textColor="?attr/edit_text_color" />
                             </com.google.android.material.textfield.TextInputLayout>
 
                             <LinearLayout
@@ -117,10 +119,11 @@
 
                                         <EditText
                                             android:id="@+id/hostname"
+                                            style="@style/Widget.Conversations.EditText"
                                             android:layout_width="fill_parent"
-                                            android:layout_height="wrap_content"
-                                            android:inputType="textWebEmailAddress"
-                                            style="@style/Widget.Conversations.EditText"/>
+                                            android:layout_height="76dp"
+                                            android:hint="@string/account_settings_hostname"
+                                            android:inputType="textWebEmailAddress" />
                                     </com.google.android.material.textfield.TextInputLayout>
                                 </LinearLayout>
 
@@ -140,11 +143,12 @@
 
                                         <EditText
                                             android:id="@+id/port"
+                                            style="@style/Widget.Conversations.EditText"
                                             android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
+                                            android:layout_height="76dp"
+                                            android:hint="@string/account_settings_port"
                                             android:inputType="number"
-                                            android:maxLength="5"
-                                            style="@style/Widget.Conversations.EditText"/>
+                                            android:maxLength="5" />
                                     </com.google.android.material.textfield.TextInputLayout>
                                 </LinearLayout>
                             </LinearLayout>
@@ -153,9 +157,9 @@
                                 android:id="@+id/account_register_new"
                                 style="@style/Widget.Conversations.CheckBox"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="76dp"
                                 android:layout_marginTop="8dp"
-                                android:text="@string/register_account"/>
+                                android:text="@string/register_account" />
                         </LinearLayout>
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>

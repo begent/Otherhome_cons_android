@@ -15,12 +15,14 @@
             style="@style/InputLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/your_account"/>
+            android:text="@string/your_account"
+            android:textSize="14sp" />
 
         <Spinner
             android:id="@+id/account"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="52dp"
+            android:contentDescription="@string/username" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -32,9 +34,10 @@
                 android:id="@+id/group_chat_name"
                 style="@style/Widget.Conversations.EditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/create_dialog_group_chat_name"
-                android:imeOptions="actionNext|flagNoExtractUi"/>
+                android:layout_height="52dp"
+                android:hint="@string/group_chat_name"
+                android:imeOptions="actionNext|flagNoExtractUi"
+                android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </layout>

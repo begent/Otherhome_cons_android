@@ -15,12 +15,14 @@
             style="@style/InputLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/your_account"/>
+            android:text="@string/your_account"
+            android:textSize="14sp" />
 
         <Spinner
             android:id="@+id/account"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="52dp"
+            android:contentDescription="@string/pick_your_username" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/account_jid_layout"
@@ -34,18 +36,20 @@
                 android:id="@+id/jid"
                 style="@style/Widget.Conversations.EditText"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:imeOptions="actionDone|flagNoExtractUi"/>
+                android:layout_height="52dp"
+                android:hint="@string/joining_conference"
+                android:imeOptions="actionDone|flagNoExtractUi"
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
             android:id="@+id/bookmark"
             style="@style/Widget.Conversations.CheckBox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:layout_marginTop="8dp"
             android:checked="true"
-            android:text="@string/save_as_bookmark"/>
+            android:text="@string/save_as_bookmark"
+            android:textSize="14sp" />
     </LinearLayout>
 </layout>

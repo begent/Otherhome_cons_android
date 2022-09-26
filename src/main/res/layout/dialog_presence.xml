@@ -22,28 +22,32 @@
                 style="@style/Widget.Conversations.RadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/presence_online"/>
+                android:minHeight="48dp"
+                android:text="@string/presence_online" />
 
             <RadioButton
                 android:id="@+id/away"
                 style="@style/Widget.Conversations.RadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/presence_away"/>
+                android:minHeight="48dp"
+                android:text="@string/presence_away" />
 
             <RadioButton
                 android:id="@+id/xa"
                 style="@style/Widget.Conversations.RadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/presence_xa"/>
+                android:minHeight="48dp"
+                android:text="@string/presence_xa" />
 
             <RadioButton
                 android:id="@+id/dnd"
                 style="@style/Widget.Conversations.RadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/presence_dnd"/>
+                android:minHeight="48dp"
+                android:text="@string/presence_dnd" />
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -59,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/status_message"
-                android:inputType="textShortMessage"/>
+                android:inputType="textShortMessage"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

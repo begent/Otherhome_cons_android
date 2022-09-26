@@ -11,15 +11,19 @@
             android:layout_centerInParent="true"
             android:scaleType="center"
             android:layout_margin="12dp"/>
+
         <ImageButton
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:alpha="?attr/delete_icon_alpha"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="?attr/icon_cancel"
-            android:layout_alignParentRight="true" />
+            android:contentDescription="@string/view_media"
+            android:minWidth="32dp"
+            android:minHeight="32dp"
+            android:src="?attr/icon_cancel" />
     </RelativeLayout>
 </layout>

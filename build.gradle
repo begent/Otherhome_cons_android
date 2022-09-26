@@ -88,6 +88,7 @@ ext {
 android {
     namespace 'eu.siacs.conversations'
     compileSdkVersion 32
+    buildToolsVersion "30.0.3" // 추가
 
     defaultConfig {
         minSdkVersion 21

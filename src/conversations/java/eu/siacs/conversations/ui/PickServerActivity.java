@@ -51,14 +51,14 @@ public class PickServerActivity extends XmppActivity {
         startActivity(new Intent(this, WelcomeActivity.class));
         super.onBackPressed();
     }
-
+/* 숨김 xmpp서버를 선택해서 직접 로그인 - activity_pick_server.xml 버튼
     @Override
     public void onNewIntent(Intent intent) {
         if (intent != null) {
             setIntent(intent);
         }
     }
-
+*/
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         if (getResources().getBoolean(R.bool.portrait_only)) {
@@ -74,6 +74,7 @@ public class PickServerActivity extends XmppActivity {
             addInviteUri(intent);
             startActivity(intent);
         });
+/* 숨김 xmpp서버를 선택해서 직접 로그인 - activity_pick_server.xml 버튼
         binding.useOwnProvider.setOnClickListener(v -> {
             List<Account> accounts = xmppConnectionService.getAccounts();
             Intent intent = new Intent(this, EditAccountActivity.class);
@@ -87,7 +88,7 @@ public class PickServerActivity extends XmppActivity {
             addInviteUri(intent);
             startActivity(intent);
         });
-
+*/
     }
 
     public void addInviteUri(Intent intent) {
