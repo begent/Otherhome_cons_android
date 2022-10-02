@@ -105,7 +105,7 @@ public class FileBackend {
 
     public static long getFileSize(Context context, Uri uri) {
         try (final Cursor cursor =
-                context.getContentResolver().query(uri, null, null, null, null)) {
+                     context.getContentResolver().query(uri, null, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 final int index = cursor.getColumnIndex(OpenableColumns.SIZE);
                 if (index == -1) {
@@ -400,13 +400,13 @@ public class FileBackend {
     public static Uri getMediaUri(Context context, File file) {
         final String filePath = file.getAbsolutePath();
         try (final Cursor cursor =
-                context.getContentResolver()
-                        .query(
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                new String[] {MediaStore.Images.Media._ID},
-                                MediaStore.Images.Media.DATA + "=? ",
-                                new String[] {filePath},
-                                null)) {
+                     context.getContentResolver()
+                             .query(
+                                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                     new String[] {MediaStore.Images.Media._ID},
+                                     MediaStore.Images.Media.DATA + "=? ",
+                                     new String[] {filePath},
+                                     null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 final int id =
                         cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns._ID));
@@ -546,7 +546,7 @@ public class FileBackend {
         final boolean encrypted =
                 !decrypted
                         && (message.getEncryption() == Message.ENCRYPTION_PGP
-                                || message.getEncryption() == Message.ENCRYPTION_DECRYPTED);
+                        || message.getEncryption() == Message.ENCRYPTION_DECRYPTED);
         String path = message.getRelativeFilePath();
         if (path == null) {
             path = message.getUuid();
@@ -624,9 +624,9 @@ public class FileBackend {
         long size = file.length();
         if (size == 0
                 || size
-                        >= mXmppConnectionService
-                                .getResources()
-                                .getInteger(R.integer.auto_accept_filesize)) {
+                >= mXmppConnectionService
+                .getResources()
+                .getInteger(R.integer.auto_accept_filesize)) {
             return false;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -663,8 +663,8 @@ public class FileBackend {
             throw new FileCopyException(R.string.error_unable_to_create_temporary_file);
         }
         try (final OutputStream os = new FileOutputStream(file);
-                final InputStream is =
-                        mXmppConnectionService.getContentResolver().openInputStream(uri)) {
+             final InputStream is =
+                     mXmppConnectionService.getContentResolver().openInputStream(uri)) {
             if (is == null) {
                 throw new FileCopyException(R.string.error_file_not_found);
             }
@@ -713,9 +713,9 @@ public class FileBackend {
         final String[] projection = {MediaStore.MediaColumns.DATA};
         String filename = null;
         try (final Cursor cursor =
-                mXmppConnectionService
-                        .getContentResolver()
-                        .query(uri, projection, null, null, null)) {
+                     mXmppConnectionService
+                             .getContentResolver()
+                             .query(uri, projection, null, null, null)) {
             if (cursor != null && cursor.moveToFirst()) {
                 filename = cursor.getString(0);
             }
@@ -922,7 +922,7 @@ public class FileBackend {
 
     private int getRotation(final Uri image) {
         try (final InputStream is =
-                mXmppConnectionService.getContentResolver().openInputStream(image)) {
+                     mXmppConnectionService.getContentResolver().openInputStream(image)) {
             return is == null ? 0 : getRotation(is);
         } catch (final Exception e) {
             return 0;
@@ -1022,12 +1022,12 @@ public class FileBackend {
         int record = 0;
         for (int y = Math.round(h * IGNORE_PADDING); y < h - Math.round(h * IGNORE_PADDING); ++y) {
             for (int x = Math.round(w * IGNORE_PADDING);
-                    x < w - Math.round(w * IGNORE_PADDING);
-                    ++x) {
+                 x < w - Math.round(w * IGNORE_PADDING);
+                 ++x) {
                 int pixel = bitmap.getPixel(x, y);
                 if ((Color.red(pixel) * 0.299
-                                + Color.green(pixel) * 0.587
-                                + Color.blue(pixel) * 0.114)
+                        + Color.green(pixel) * 0.587
+                        + Color.blue(pixel) * 0.114)
                         > 186) {
                     --record;
                 } else {
@@ -1046,8 +1046,8 @@ public class FileBackend {
             for (int x = 0; x < w; ++x) {
                 int pixel = bitmap.getPixel(x, y);
                 if ((Color.red(pixel) * 0.299
-                                + Color.green(pixel) * 0.587
-                                + Color.blue(pixel) * 0.114)
+                        + Color.green(pixel) * 0.587
+                        + Color.blue(pixel) * 0.114)
                         > 186) {
                     white++;
                 }
@@ -1602,7 +1602,6 @@ public class FileBackend {
         return getVideoDimensions(metadataRetriever);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private Dimensions getPdfDocumentDimensions(final File file) {
         final ParcelFileDescriptor fileDescriptor;
         try {
@@ -1610,7 +1609,7 @@ public class FileBackend {
             if (fileDescriptor == null) {
                 return new Dimensions(0, 0);
             }
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             return new Dimensions(0, 0);
         }
         try {
@@ -1621,7 +1620,7 @@ public class FileBackend {
             page.close();
             pdfRenderer.close();
             return scalePdfDimensions(new Dimensions(height, width));
-        } catch (IOException | SecurityException e) {
+        } catch (final IOException | SecurityException e) {
             Log.d(Config.LOGTAG, "unable to get dimensions for pdf document", e);
             return new Dimensions(0, 0);
         }
