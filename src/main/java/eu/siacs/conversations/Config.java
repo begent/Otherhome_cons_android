@@ -15,10 +15,9 @@ import eu.siacs.conversations.xmpp.chatstate.ChatState;
 public final class Config {
     private static final int UNENCRYPTED = 1;
     private static final int OPENPGP = 2;
-    private static final int OTR = 4;
     private static final int OMEMO = 8;
 
-    private static final int ENCRYPTION_MASK = UNENCRYPTED | OPENPGP | OTR | OMEMO;
+    private static final int ENCRYPTION_MASK = UNENCRYPTED | OPENPGP | OMEMO;
 
     public static boolean supportUnencrypted() {
         return (ENCRYPTION_MASK & UNENCRYPTED) != 0;
@@ -32,18 +31,22 @@ public final class Config {
         return (ENCRYPTION_MASK & OMEMO) != 0;
     }
 
+    public static boolean omemoOnly() {
+        return !multipleEncryptionChoices() && supportOmemo();
+    }
+
     public static boolean multipleEncryptionChoices() {
         return (ENCRYPTION_MASK & (ENCRYPTION_MASK - 1)) != 0;
     }
 
     public static final String LOGTAG = BuildConfig.APP_NAME.toLowerCase(Locale.US);
 
-    public static final Jid BUG_REPORTS = Jid.of("dev@bgentgroup.com");
+    public static final Jid BUG_REPORTS = Jid.of("bugs@conversations.im");
     public static final Uri HELP = Uri.parse("https://help.conversations.im");
 
 
     public static final String DOMAIN_LOCK = null; //only allow account creation for this domain
-    public static final String MAGIC_CREATE_DOMAIN = "otherhome.au";
+    public static final String MAGIC_CREATE_DOMAIN = "conversations.im";
     public static final Jid QUICKSY_DOMAIN = Jid.of("quicksy.im");
 
     public static final String CHANNEL_DISCOVERY = "https://search.jabber.network";

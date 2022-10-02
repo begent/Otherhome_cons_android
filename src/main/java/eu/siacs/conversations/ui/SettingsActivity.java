@@ -164,11 +164,11 @@ public class SettingsActivity extends XmppActivity implements OnSharedPreference
 
         boolean removeLocation =
                 new Intent("eu.siacs.conversations.location.request")
-                                .resolveActivity(getPackageManager())
+                        .resolveActivity(getPackageManager())
                         == null;
         boolean removeVoice =
                 new Intent(MediaStore.Audio.Media.RECORD_SOUND_ACTION)
-                                .resolveActivity(getPackageManager())
+                        .resolveActivity(getPackageManager())
                         == null;
 
         ListPreference quickAction =
@@ -298,35 +298,42 @@ public class SettingsActivity extends XmppActivity implements OnSharedPreference
             deleteOmemoPreference.setOnPreferenceClickListener(
                     preference -> deleteOmemoIdentities());
         }
+        if (Config.omemoOnly()) {
+            final PreferenceCategory privacyCategory =
+                    (PreferenceCategory) mSettingsFragment.findPreference("privacy");
+            final Preference omemoPreference =mSettingsFragment.findPreference(OMEMO_SETTING);
+            if (omemoPreference != null) {
+                privacyCategory.removePreference(omemoPreference);
+            }
+        }
     }
 
     private void changeOmemoSettingSummary() {
-        ListPreference omemoPreference =
+        final ListPreference omemoPreference =
                 (ListPreference) mSettingsFragment.findPreference(OMEMO_SETTING);
-        if (omemoPreference != null) {
-            String value = omemoPreference.getValue();
-            switch (value) {
-                case "always":
-                    omemoPreference.setSummary(R.string.pref_omemo_setting_summary_always);
-                    break;
-                case "default_on":
-                    omemoPreference.setSummary(R.string.pref_omemo_setting_summary_default_on);
-                    break;
-                case "default_off":
-                    omemoPreference.setSummary(R.string.pref_omemo_setting_summary_default_off);
-                    break;
-            }
-        } else {
-            Log.d(Config.LOGTAG, "unable to find preference named " + OMEMO_SETTING);
+        if (omemoPreference == null) {
+            return;
+        }
+        final String value = omemoPreference.getValue();
+        switch (value) {
+            case "always":
+                omemoPreference.setSummary(R.string.pref_omemo_setting_summary_always);
+                break;
+            case "default_on":
+                omemoPreference.setSummary(R.string.pref_omemo_setting_summary_default_on);
+                break;
+            case "default_off":
+                omemoPreference.setSummary(R.string.pref_omemo_setting_summary_default_off);
+                break;
         }
     }
 
     private boolean isCallable(final Intent i) {
         return i != null
                 && getPackageManager()
-                                .queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY)
-                                .size()
-                        > 0;
+                .queryIntentActivities(i, PackageManager.MATCH_DEFAULT_ONLY)
+                .size()
+                > 0;
     }
 
     private boolean cleanCache() {
